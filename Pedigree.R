@@ -215,6 +215,7 @@ estimatePhi <- function(x,maf){
    }
   }
  }
+ rlt[rlt == "NaN"] <- 0
  kinship = matrix(nrow=0,ncol=3)
  colnames(kinship)=c("id1","id2","kinship")
  for( i in 1:inds){
@@ -244,6 +245,7 @@ TestPedigree<-function(pedData,kinship=NULL,map,lambda=1E-5,basis=33,permu_times
     temp[ temp[,i] != ref[i], i] = 0
 	temp[ temp[,i] == ref[i], i] = 1
   }
+  temp <- apply(temp, 2 ,as.numeric)
   genodata=matrix(0,d1,d2/2)
   for( i in 1:(d2/2) ){
     genodata[,i] = temp[,i*2-1] + temp[,i*2]
